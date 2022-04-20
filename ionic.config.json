@@ -1,0 +1,7 @@
+{
+  "name": "mg-app-vue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

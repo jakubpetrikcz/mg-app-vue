@@ -25,7 +25,6 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  IonLabel,
   IonIcon,
   IonPage,
   IonRouterOutlet,

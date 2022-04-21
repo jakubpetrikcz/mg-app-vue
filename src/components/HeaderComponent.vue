@@ -20,9 +20,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import {
+  IonHeader,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonSearchbar,
+} from "@ionic/vue";
 
 export default defineComponent({
   name: "HeaderComponent",
+  components: {
+    IonHeader,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButton,
+    IonSearchbar,
+  },
   props: {
     name: String,
     showBtn: Boolean,

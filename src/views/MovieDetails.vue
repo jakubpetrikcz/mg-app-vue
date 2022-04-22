@@ -14,7 +14,9 @@
     </ion-header>
     <ion-content>
       <div className="main-content">
-        <div className="images-content"></div>
+        <div className="images-content">
+          <!-- <ion-img :src="imageUrl + item.backdrop_path"></ion-img> -->
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -29,7 +31,10 @@ import {
   IonButtons,
   IonBackButton,
   IonTitle,
+  IonContent,
+  // IonImg,
 } from "@ionic/vue";
+import { getMovieDetailList } from "@/services/ApiConnect";
 
 export default defineComponent({
   name: "MovieDetails",
@@ -40,6 +45,21 @@ export default defineComponent({
     IonButtons,
     IonBackButton,
     IonTitle,
+    IonContent,
+    // IonImg,
+  },
+  data() {
+    return {
+      movie: {},
+      imageUrl: "http://image.tmdb.org/t/p/original/",
+    };
+  },
+  mounted() {
+    const id = this.$router.currentRoute.value.params.id;
+    console.log(typeof id);
+    // getMovieDetailList(id).then((r) => {
+    //   this.movie = r.results;
+    // });
   },
 });
 </script>

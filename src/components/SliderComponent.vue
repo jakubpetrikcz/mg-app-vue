@@ -4,42 +4,43 @@
   </ion-item>
   <swiper v-if="isTrend" :slides-per-view="2" :loop="true">
     <swiper-slide v-for="list in trendsList" :key="list.id.value">
-      <ion-card
-        ><router-link :to="'/tab1/' + list.id">
-          <img :src="imageUrl + list.poster_path" alt="movie image" />
-          <h4>{{ list.title }}</h4>
-        </router-link></ion-card
-      >
+      <MovieCardComponent
+        :title="list.title"
+        :imgSrc="imageUrl + list.poster_path"
+        :router="'/tab1/' + list.id"
+        :isAddBtn="true"
+      />
     </swiper-slide>
   </swiper>
   <swiper v-if="!isTrend" :slides-per-view="2" :loop="true">
     <swiper-slide v-for="list in topList" :key="list.id.value">
-      <ion-card>
-        <div :router-link="'/tab1/' + list.id">
-          <img :src="imageUrl + list.poster_path" alt="movie image" />
-          <h4>{{ list.title }}</h4>
-        </div></ion-card
-      >
+      <MovieCardComponent
+        :title="list.title"
+        :imgSrc="imageUrl + list.poster_path"
+        :router="'/tab1/' + list.id"
+        :isAddBtn="true"
+      />
     </swiper-slide>
   </swiper>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { IonItem, IonLabel, IonCard } from "@ionic/vue";
+import { IonItem, IonLabel } from "@ionic/vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { getTrendingList, getTopRatedList } from "../services/ApiConnect";
+import MovieCardComponent from "@/components/MovieCardComponent.vue";
 
 import "swiper/scss";
 
 export default defineComponent({
   name: "SliderComponent",
   components: {
+    MovieCardComponent,
     IonItem,
     IonLabel,
     Swiper,
     SwiperSlide,
-    IonCard,
   },
   props: {
     title: String,
@@ -83,103 +84,5 @@ export default defineComponent({
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--ion-color-dark);
-}
-ion-card {
-  width: 100%;
-  position: relative;
-  box-shadow: none !important;
-  margin: 0.5rem;
-  overflow: visible;
-  text-align: center;
-
-  a {
-    text-decoration: none;
-  }
-
-  img {
-    object-fit: cover;
-    border-radius: 12px;
-    width: 100%;
-    transition: 600ms all ease-in-out;
-  }
-
-  h4 {
-    margin: 0.5rem;
-    margin-top: 0;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #495057;
-  }
-
-  ion-button {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    z-index: 10;
-    font-size: 2.5rem;
-    width: 50px;
-    height: 50px;
-    --background: transparent;
-    --box-shadow: none;
-    --vertical-align: middle;
-    --padding-start: 0px;
-    --padding-end: 0px;
-    margin: 0;
-
-    .bookmark {
-      color: #e01e37;
-    }
-
-    .add {
-      color: white;
-      position: absolute;
-      top: 42%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.3rem;
-    }
-  }
-
-  .movie-badge {
-    position: absolute;
-    top: -12px;
-    right: -20px;
-    background: transparent;
-    color: #ffbe0b;
-
-    i {
-      font-size: 2rem;
-    }
-
-    span {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: black;
-      font-size: 0.8rem;
-      z-index: 12;
-    }
-  }
-
-  .remove-btn {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: 10;
-    font-size: 1.1rem;
-    width: 40px;
-    height: 40px;
-    --background: #e01e37;
-    --box-shadow: none;
-    --vertical-align: middle;
-    --padding-start: 0px;
-    --padding-end: 0px;
-    margin: 0;
-
-    ion-icon {
-      color: black;
-    }
-  }
 }
 </style>

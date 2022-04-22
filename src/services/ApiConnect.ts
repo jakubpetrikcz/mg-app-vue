@@ -19,3 +19,14 @@ export const getTopRatedList = () => {
       return response.data;
     });
 };
+
+export const getMovieDetailList = (id: string) => {
+  return axios
+    .get(
+      `${apiUrl}/movie/${id}?api_key=${apiKey}&language=en-US
+  `
+    )
+    .then((response) => {
+      return response.data;
+    });
+};

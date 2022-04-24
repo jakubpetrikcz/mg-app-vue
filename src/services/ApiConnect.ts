@@ -38,3 +38,14 @@ export const getCreditsList = (id: string) => {
       return response.data;
     });
 };
+
+export const getPopularList = (page: number) => {
+  return axios
+    .get(
+      `${apiUrl}/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`
+    )
+    .then((response) => {
+      // console.log(response.data);
+      return response.data;
+    });
+};

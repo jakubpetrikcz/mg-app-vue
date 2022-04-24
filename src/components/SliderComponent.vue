@@ -8,7 +8,9 @@
         :title="list.title"
         :imgSrc="imageUrl + list.poster_path"
         :router="'/tab1/' + list.id"
+        :voterRating="NaN"
         :isAddBtn="true"
+        :isRatingBtn="false"
       />
     </swiper-slide>
   </swiper>
@@ -18,7 +20,9 @@
         :title="list.title"
         :imgSrc="imageUrl + list.poster_path"
         :router="'/tab1/' + list.id"
+        :voterRating="NaN"
         :isAddBtn="true"
+        :isRatingBtn="false"
       />
     </swiper-slide>
   </swiper>

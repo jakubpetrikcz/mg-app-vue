@@ -6,6 +6,12 @@
         <ion-icon class="add" :icon="add"></ion-icon>
       </ion-button>
     </div>
+    <div v-if="isRatingBtn">
+      <ion-badge class="movie-badge">
+        <span>{{ voterRating }}</span>
+        <i class="fas fa-star"></i>
+      </ion-badge>
+    </div>
     <router-link :to="router">
       <img :src="imgSrc" alt="movie image" />
       <h4>{{ title }}</h4>
@@ -15,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { IonCard, IonButton, IonIcon } from "@ionic/vue";
+import { IonCard, IonButton, IonIcon, IonBadge } from "@ionic/vue";
 import { bookmark, add } from "ionicons/icons";
 
 export default defineComponent({
@@ -24,12 +30,15 @@ export default defineComponent({
     IonCard,
     IonButton,
     IonIcon,
+    IonBadge,
   },
   props: {
     title: String,
     imgSrc: String,
     router: String,
+    voterRating: Number,
     isAddBtn: Boolean,
+    isRatingBtn: Boolean,
   },
   setup() {
     return {

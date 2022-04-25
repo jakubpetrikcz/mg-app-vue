@@ -1,6 +1,22 @@
 <template>
   <ion-page>
-    <HeaderComponent name="Search" :showBtn="false" :showSearchBar="true" />
+    <!-- <ion-header>
+      <ion-toolbar>
+        <ion-searchbar
+          color="light"
+          :value="searchText"
+          @ionChange="segmentChanged($event)"
+        >
+        </ion-searchbar>
+      </ion-toolbar>
+    </ion-header> -->
+    <HeaderComponent
+      name="Movie Generator"
+      :showBtn="false"
+      :showSearchBar="true"
+      :searchText="searchText"
+      :setSearchText="this.segmentChanged"
+    />
     <ion-content :fullscreen="true">
       <ion-list>
         <div>
@@ -40,10 +56,13 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  // IonToolbar,
+  // IonHeader,
+  // IonSearchbar,
 } from "@ionic/vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import MovieCardComponent from "@/components/MovieCardComponent.vue";
-import { getPopularList } from "@/services/ApiConnect";
+import { getPopularList, getSearchList } from "@/services/ApiConnect";
 
 export default defineComponent({
   name: "Tab2Page",
@@ -56,18 +75,36 @@ export default defineComponent({
     IonGrid,
     IonRow,
     IonCol,
+    // IonToolbar,
+    // IonHeader,
+    // IonSearchbar,
   },
   data() {
     return {
       popularList: [],
       imageUrl: "http://image.tmdb.org/t/p/original/",
+      searchText: "",
     };
   },
   mounted() {
     getPopularList(1).then((r) => {
       this.popularList = r.results;
-      console.log(this.popularList);
     });
+  },
+  methods: {
+    segmentChanged(ev: any) {
+      this.searchText = ev.target.value;
+
+      if (this.searchText.length !== 0) {
+        getSearchList(1, this.searchText).then((r) => {
+          this.popularList = r.results;
+        });
+      } else {
+        getPopularList(1).then((r) => {
+          this.popularList = r.results;
+        });
+      }
+    },
   },
 });
 </script>

@@ -12,7 +12,12 @@
         </ion-button>
       </div>
       <div v-if="showSearchBar">
-        <ion-searchbar color="light"> </ion-searchbar>
+        <ion-searchbar
+          color="light"
+          :value="searchText"
+          @ionChange="setSearchText"
+        >
+        </ion-searchbar>
       </div>
     </div>
   </ion-header>
@@ -43,6 +48,8 @@ export default defineComponent({
     name: String,
     showBtn: Boolean,
     showSearchBar: Boolean,
+    searchText: String,
+    setSearchText: Function,
   },
 });
 </script>

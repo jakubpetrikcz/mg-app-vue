@@ -49,3 +49,14 @@ export const getPopularList = (page: number) => {
       return response.data;
     });
 };
+
+export const getSearchList = (page: number, query: string) => {
+  return axios
+    .get(
+      `${apiUrl}/search/movie?api_key=${apiKey}&language=en-US&page=${page}&query=${query}
+  `
+    )
+    .then((response) => {
+      return response.data;
+    });
+};

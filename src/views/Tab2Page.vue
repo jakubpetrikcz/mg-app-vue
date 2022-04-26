@@ -41,6 +41,17 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+          <ion-infinite-scroll
+            @ionInfinite="loadData($event)"
+            threshold="100px"
+            id="infinite-scroll"
+          >
+            <ion-infinite-scroll-content
+              loading-spinner="bubbles"
+              loading-text="Loading more data..."
+            >
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
         </div>
       </ion-list>
     </ion-content>
@@ -48,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import {
   IonPage,
   IonContent,
@@ -56,6 +67,9 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  InfiniteScrollCustomEvent,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   // IonToolbar,
   // IonHeader,
   // IonSearchbar,
@@ -75,6 +89,8 @@ export default defineComponent({
     IonGrid,
     IonRow,
     IonCol,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
     // IonToolbar,
     // IonHeader,
     // IonSearchbar,
@@ -84,26 +100,57 @@ export default defineComponent({
       popularList: [],
       imageUrl: "http://image.tmdb.org/t/p/original/",
       searchText: "",
+      page: 1,
     };
   },
   mounted() {
-    getPopularList(1).then((r) => {
+    getPopularList(this.page).then((r) => {
       this.popularList = r.results;
     });
   },
   methods: {
     segmentChanged(ev: any) {
+      this.popularList = [];
+      this.page = 1;
       this.searchText = ev.target.value;
 
       if (this.searchText.length !== 0) {
-        getSearchList(1, this.searchText).then((r) => {
+        getSearchList(this.page, this.searchText).then((r) => {
           this.popularList = r.results;
         });
       } else {
-        getPopularList(1).then((r) => {
+        getPopularList(this.page).then((r) => {
           this.popularList = r.results;
         });
       }
+    },
+    pushData() {
+      if (this.searchText.length !== 0) {
+        getSearchList(this.page, this.searchText).then((r) => {
+          this.popularList = this.popularList.concat(r.results);
+          console.log(this.popularList);
+        });
+      } else {
+        getPopularList(this.page).then((r) => {
+          this.popularList = this.popularList.concat(r.results);
+          console.log(this.popularList);
+        });
+      }
+    },
+    loadData(ev: any) {
+      this.page = this.page + 1;
+      // Load the new data once we reach the end of the page
+
+      console.log(this.page);
+      const res = this.pushData();
+      console.log("Loaded data");
+      console.log(res);
+      ev.target.complete();
+
+      // Once the last page has been fetched, we'll disable infinite loading
+      // if (this.page >= this.maxPages) {
+      //     ev.target.disabled = true;
+      // }
     },
   },
 });

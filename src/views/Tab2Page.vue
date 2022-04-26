@@ -104,53 +104,33 @@ export default defineComponent({
     };
   },
   mounted() {
-    getPopularList(this.page).then((r) => {
-      this.popularList = r.results;
-    });
+    this.filterData();
   },
   methods: {
     segmentChanged(ev: any) {
       this.popularList = [];
       this.page = 1;
       this.searchText = ev.target.value;
-
-      if (this.searchText.length !== 0) {
-        getSearchList(this.page, this.searchText).then((r) => {
-          this.popularList = r.results;
-        });
-      } else {
-        getPopularList(this.page).then((r) => {
-          this.popularList = r.results;
-        });
-      }
+      this.filterData();
     },
-    pushData() {
+    filterData() {
       if (this.searchText.length !== 0) {
         getSearchList(this.page, this.searchText).then((r) => {
           this.popularList = this.popularList.concat(r.results);
-          console.log(this.popularList);
         });
       } else {
         getPopularList(this.page).then((r) => {
           this.popularList = this.popularList.concat(r.results);
-          console.log(this.popularList);
         });
       }
     },
     loadData(ev: any) {
       this.page = this.page + 1;
-      // Load the new data once we reach the end of the page
 
       console.log(this.page);
-      const res = this.pushData();
+      this.filterData();
       console.log("Loaded data");
-      console.log(res);
       ev.target.complete();
-
-      // Once the last page has been fetched, we'll disable infinite loading
-      // if (this.page >= this.maxPages) {
-      //     ev.target.disabled = true;
-      // }
     },
   },
 });

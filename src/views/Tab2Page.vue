@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import {
   IonPage,
   IonContent,
@@ -67,12 +67,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  InfiniteScrollCustomEvent,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
-  // IonToolbar,
-  // IonHeader,
-  // IonSearchbar,
 } from "@ionic/vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import MovieCardComponent from "@/components/MovieCardComponent.vue";
@@ -91,9 +87,6 @@ export default defineComponent({
     IonCol,
     IonInfiniteScroll,
     IonInfiniteScrollContent,
-    // IonToolbar,
-    // IonHeader,
-    // IonSearchbar,
   },
   data() {
     return {

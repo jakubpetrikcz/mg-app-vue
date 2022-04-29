@@ -7,9 +7,38 @@
     </ion-list>
     <div class="popover">
       <div v-if="showBtn">
-        <ion-button id="trigger-button" class="generate-btn">
+        <ion-button
+          id="trigger-button"
+          class="generate-btn"
+          @click="getDiscoverMovie()"
+        >
           <span class="font-span">Generate</span>
         </ion-button>
+        <ion-modal
+          backdrop-dismiss="true"
+          trigger="trigger-button"
+          className="modal"
+          @click="dismiss()"
+        >
+          <ion-content>
+            <div className="modal-content">
+              <div className="modal-card">
+                <ion-button className="close-modal-btn" @click="dismiss()">
+                  <ion-icon :icon="closeOutline"></ion-icon>
+                </ion-button>
+                <ion-card>
+                  <router-link :to="'/tab1/' + modalMovie.id">
+                    <img
+                      :src="imageUrl + modalMovie.poster_path"
+                      alt="movie image"
+                    />
+                    <h4>{{ modalMovie.title }}</h4>
+                  </router-link>
+                </ion-card>
+              </div>
+            </div>
+          </ion-content>
+        </ion-modal>
       </div>
       <div v-if="showSearchBar">
         <ion-searchbar
@@ -32,7 +61,14 @@ import {
   IonLabel,
   IonButton,
   IonSearchbar,
+  IonModal,
+  IonIcon,
+  IonCard,
+  IonContent,
+  modalController,
 } from "@ionic/vue";
+import { getDiscoverList } from "@/services/ApiConnect";
+import { closeOutline } from "ionicons/icons";
 
 export default defineComponent({
   name: "HeaderComponent",
@@ -43,6 +79,10 @@ export default defineComponent({
     IonLabel,
     IonButton,
     IonSearchbar,
+    IonModal,
+    IonIcon,
+    IonCard,
+    IonContent,
   },
   props: {
     name: String,
@@ -50,6 +90,52 @@ export default defineComponent({
     showSearchBar: Boolean,
     searchText: String,
     setSearchText: Function,
+  },
+  setup() {
+    return {
+      closeOutline,
+    };
+  },
+  data() {
+    return {
+      modalMovie: [],
+      imageUrl: "http://image.tmdb.org/t/p/original/",
+    };
+  },
+  mounted() {
+    this.getDiscoverMovie();
+  },
+  methods: {
+    getDiscoverMovie() {
+      // this.page = 1;
+      // this.discoverResults = [];
+
+      const page = Math.floor(Math.random() * (500 - 1) + 1) + 1;
+      console.log(page);
+      const movie = Math.floor(Math.random() * 19);
+      console.log(movie);
+
+      getDiscoverList(page).then((data) => {
+        this.modalMovie = data.results[movie];
+        console.log(this.modalMovie);
+        // this.initializeContainer();
+      });
+    },
+
+    // initializeContainer() {
+    //   this.title = this.modalMovie.title;
+    //   // console.log(this.title);
+    //   this.image =
+    //     "http://image.tmdb.org/t/p/original/" + this.modalMovie.poster_path;
+    //   // console.log(this.image);
+    //   this.id = this.modalMovie.id;
+    // },
+
+    dismiss() {
+      modalController.dismiss({
+        dismissed: true,
+      });
+    },
   },
 });
 </script>
@@ -95,6 +181,71 @@ ion-header {
     height: 3.125rem;
     font-size: 1.2rem;
     --background: #ff002b;
+  }
+}
+
+.modal {
+  --background: transparent;
+  --box-shadow: none;
+
+  ion-content {
+    --background: transparent;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .modal-content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(25%);
+  }
+
+  .modal-card {
+    max-width: 274px;
+    position: relative;
+    overflow: visible;
+
+    .close-modal-btn {
+      position: absolute;
+      top: -10px;
+      right: -5px;
+      color: white;
+      outline: none;
+      border: none;
+      z-index: 15;
+      --width: 60px;
+      --height: 60px;
+      --vertical-align: middle;
+      --padding-start: 10px;
+      --padding-end: 10px;
+      --background: #d90429;
+    }
+
+    ion-card {
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      overflow: visible;
+      border: 5px solid #ffffff;
+      background: #fff;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    h4 {
+      margin: 0.5rem;
+      margin-top: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #495057;
+    }
   }
 }
 </style>

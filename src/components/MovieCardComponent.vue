@@ -1,7 +1,7 @@
 <template>
   <ion-card>
     <div v-if="isAddBtn">
-      <ion-button fill="clear">
+      <ion-button fill="clear" @click="getItems(item)">
         <ion-icon slot="icon-only" class="bookmark" :icon="bookmark"></ion-icon>
         <ion-icon class="add" :icon="add"></ion-icon>
       </ion-button>
@@ -39,12 +39,33 @@ export default defineComponent({
     voterRating: Number,
     isAddBtn: Boolean,
     isRatingBtn: Boolean,
+    item: [],
   },
   setup() {
     return {
       bookmark,
       add,
     };
+  },
+  methods: {
+    getItems(data: any) {
+      console.log(data);
+      const items = [] as any;
+      if (JSON.parse(localStorage.getItem("items") || "{}") !== null) {
+        const localItems = JSON.parse(localStorage.getItem("items") || "{}");
+        localItems.map((details: any) => {
+          if (data.id !== details.id) {
+            if (items[data.title] === undefined) {
+              items[data.title] = data.title;
+            }
+            items.push(details);
+          }
+        });
+      }
+      items.push(data);
+      console.log(items);
+      localStorage.setItem("items", JSON.stringify(items));
+    },
   },
 });
 </script>

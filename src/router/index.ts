@@ -35,6 +35,10 @@ const routes: Array<RouteRecordRaw> = [
         path: "tab3",
         component: () => import("@/views/Tab3Page.vue"),
       },
+      {
+        path: "tab3/:id",
+        component: () => import("@/views/MovieDetails.vue"),
+      },
     ],
   },
 ];

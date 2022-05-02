@@ -11,6 +11,7 @@
         :voterRating="NaN"
         :isAddBtn="true"
         :isRatingBtn="false"
+        :item="list"
       />
     </swiper-slide>
   </swiper>
@@ -23,6 +24,7 @@
         :voterRating="NaN"
         :isAddBtn="true"
         :isRatingBtn="false"
+        :item="list"
       />
     </swiper-slide>
   </swiper>

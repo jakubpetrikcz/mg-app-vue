@@ -12,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
     component: TabsPage,
     children: [
       {
+        path: "",
+        redirect: "tab1",
+      },
+      {
         path: "tab1",
         component: () => import("@/views/Tab1Page.vue"),
       },

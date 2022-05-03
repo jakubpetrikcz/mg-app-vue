@@ -11,13 +11,17 @@
                 size-md="4"
                 size-sm="6"
                 size-xs="6"
-                v-for="list in results"
+                v-for="(list, i) in results"
                 :key="list.id.value"
               >
                 <MovieCardComponent
                   :title="list.title"
                   :imgSrc="imageUrl + list.poster_path"
                   :router="'/tab3/' + list.id"
+                  :isRemoveBtn="true"
+                  v-bind:removeFunction="removeItem"
+                  v-bind:movies="list"
+                  v-bind:index="i"
                 />
               </ion-col>
             </ion-row>
@@ -59,12 +63,30 @@ export default defineComponent({
       imageUrl: "http://image.tmdb.org/t/p/original/",
     };
   },
-  mounted() {
+  ionViewWillEnter() {
     this.getData();
   },
   methods: {
     getData() {
-      this.results = JSON.parse(localStorage.getItem("items") || "{}");
+      this.results = JSON.parse(localStorage.getItem("items") || "[]");
+    },
+
+    removeItem(e: any, i: number) {
+      const items: any[] = [];
+      console.log("event", this.results);
+      JSON.parse(localStorage.getItem("items") || "[]").map((data: any) => {
+        if (data.id !== e.id) {
+          items.push(data);
+        } else {
+          this.results.splice(i, 1);
+        }
+      });
+      localStorage.setItem("items", JSON.stringify(items));
+      console.log("items", items);
+
+      if (items.length === 0) {
+        localStorage.clear();
+      }
     },
   },
 });

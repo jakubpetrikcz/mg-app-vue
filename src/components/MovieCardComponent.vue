@@ -12,6 +12,15 @@
         <i class="fas fa-star"></i>
       </ion-badge>
     </div>
+    <div v-if="isRemoveBtn">
+      <ion-button
+        fill="clear"
+        class="remove-btn"
+        @click="removeFunction(movies, index)"
+      >
+        <ion-icon slot="icon-only" :icon="trash"></ion-icon>
+      </ion-button>
+    </div>
     <router-link :to="router">
       <img :src="imgSrc" alt="movie image" />
       <h4>{{ title }}</h4>
@@ -22,7 +31,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { IonCard, IonButton, IonIcon, IonBadge } from "@ionic/vue";
-import { bookmark, add } from "ionicons/icons";
+import { bookmark, add, trash } from "ionicons/icons";
 
 export default defineComponent({
   name: "MovieCardComponent",
@@ -39,20 +48,29 @@ export default defineComponent({
     voterRating: Number,
     isAddBtn: Boolean,
     isRatingBtn: Boolean,
+    isRemoveBtn: Boolean,
+    removeFunction: Function,
+    movies: Array,
+    index: Number,
     item: [],
   },
   setup() {
     return {
       bookmark,
       add,
+      trash,
     };
   },
   methods: {
     getItems(data: any) {
       console.log(data);
-      const items = [] as any;
-      if (JSON.parse(localStorage.getItem("items") || "{}") !== null) {
-        const localItems = JSON.parse(localStorage.getItem("items") || "{}");
+      const items: any[] = [];
+      if (JSON.parse(localStorage.getItem("items") || "[]") === null) {
+        items.push(data);
+        localStorage.setItem("items", JSON.stringify(items));
+      } else {
+        console.log("Tady ne!");
+        const localItems = JSON.parse(localStorage.getItem("items") || "[]");
         localItems.map((details: any) => {
           if (data.id !== details.id) {
             if (items[data.title] === undefined) {
@@ -61,10 +79,10 @@ export default defineComponent({
             items.push(details);
           }
         });
+        items.push(data);
+        console.log(items);
+        localStorage.setItem("items", JSON.stringify(items));
       }
-      items.push(data);
-      console.log(items);
-      localStorage.setItem("items", JSON.stringify(items));
     },
   },
 });

@@ -15,7 +15,7 @@
     <ion-content>
       <div className="main-content">
         <div className="images-content">
-          <ion-button slot="end" fill="clear">
+          <ion-button slot="end" fill="clear" @click="getItems()">
             <ion-icon
               slot="icon-only"
               class="bookmark"
@@ -189,6 +189,32 @@ export default defineComponent({
       const mins = time % 60;
       return `${hours}h ${mins}m`;
     };
+  },
+  methods: {
+    getItems() {
+      const id = this.$route.params.id as string;
+
+      getMovieDetailList(id).then((changesDetail) => {
+        const items: any[] = [];
+        if (JSON.parse(localStorage.getItem("items") || "[]") === null) {
+          items.push(changesDetail);
+
+          localStorage.setItem("items", JSON.stringify(items));
+        } else {
+          const localItems = JSON.parse(localStorage.getItem("items") || "[]");
+          localItems.map((details: any) => {
+            if (changesDetail.id !== details.id) {
+              if (items[changesDetail.title] === undefined) {
+                items[changesDetail.title] = changesDetail.title;
+              }
+              items.push(details);
+            }
+          });
+          items.push(changesDetail);
+          localStorage.setItem("items", JSON.stringify(items));
+        }
+      });
+    },
   },
 });
 </script>

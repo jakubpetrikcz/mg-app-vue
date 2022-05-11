@@ -4,15 +4,19 @@
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="tab1" href="/tab1">
-          <ion-icon :icon="home" />
+          <ion-icon :icon="currentRouteName === '/tab1' ? home : homeOutline" />
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tab2">
-          <ion-icon :icon="search" />
+          <ion-icon
+            :icon="currentRouteName === '/tab2' ? search : searchOutline"
+          />
         </ion-tab-button>
 
         <ion-tab-button tab="tab3" href="/tab3">
-          <ion-icon :icon="bookmark" />
+          <ion-icon
+            :icon="currentRouteName === '/tab3' ? bookmark : bookmarkOutline"
+          />
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -33,9 +37,12 @@ import {
   ellipse,
   square,
   triangle,
-  bookmark,
+  bookmarkOutline,
+  homeOutline,
+  searchOutline,
   home,
   search,
+  bookmark,
 } from "ionicons/icons";
 
 export default defineComponent({
@@ -53,10 +60,18 @@ export default defineComponent({
       ellipse,
       square,
       triangle,
-      bookmark,
+      bookmarkOutline,
+      homeOutline,
+      searchOutline,
       home,
       search,
+      bookmark,
     };
+  },
+  computed: {
+    currentRouteName() {
+      return this.$route.path;
+    },
   },
 });
 </script>

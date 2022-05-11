@@ -11,49 +11,47 @@
       </ion-toolbar>
     </ion-header> -->
     <HeaderComponent
-      name="Movie Generator"
+      name="Search"
       :showBtn="false"
       :showSearchBar="true"
       :searchText="searchText"
-      :setSearchText="this.segmentChanged"
+      :setSearchText="segmentChanged"
     />
     <ion-content :fullscreen="true">
-      <ion-list>
-        <div>
-          <ion-grid>
-            <ion-row>
-              <ion-col
-                size-lg="2"
-                size-md="4"
-                size-sm="6"
-                size-xs="6"
-                v-for="list in popularList"
-                :key="list.id.value"
-              >
-                <MovieCardComponent
-                  :title="list.title"
-                  :imgSrc="imageUrl + list.poster_path"
-                  :router="'/tab2/' + list.id"
-                  :voterRating="list.vote_average"
-                  :isAddBtn="false"
-                  :isRatingBtn="true"
-                />
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ion-infinite-scroll
-            @ionInfinite="loadData($event)"
-            threshold="100px"
-            id="infinite-scroll"
-          >
-            <ion-infinite-scroll-content
-              loading-spinner="bubbles"
-              loading-text="Loading more data..."
+      <div>
+        <ion-grid>
+          <ion-row>
+            <ion-col
+              size-lg="2"
+              size-md="4"
+              size-sm="6"
+              size-xs="6"
+              v-for="list in popularList"
+              :key="list.id.value"
             >
-            </ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </div>
-      </ion-list>
+              <MovieCardComponent
+                :title="list.title"
+                :imgSrc="imageUrl + list.poster_path"
+                :router="'/tab2/' + list.id"
+                :voterRating="list.vote_average"
+                :isAddBtn="false"
+                :isRatingBtn="true"
+              />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-infinite-scroll
+          @ionInfinite="loadData($event)"
+          threshold="100px"
+          id="infinite-scroll"
+        >
+          <ion-infinite-scroll-content
+            loading-spinner="bubbles"
+            loading-text="Loading more data..."
+          >
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -63,7 +61,6 @@ import { defineComponent } from "vue";
 import {
   IonPage,
   IonContent,
-  IonList,
   IonGrid,
   IonRow,
   IonCol,
@@ -81,7 +78,6 @@ export default defineComponent({
     MovieCardComponent,
     IonContent,
     IonPage,
-    IonList,
     IonGrid,
     IonRow,
     IonCol,
@@ -90,7 +86,7 @@ export default defineComponent({
   },
   data() {
     return {
-      popularList: [],
+      popularList: [] as any,
       imageUrl: "http://image.tmdb.org/t/p/original/",
       searchText: "",
       page: 1,

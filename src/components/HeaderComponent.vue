@@ -21,9 +21,9 @@
           @click="dismiss()"
         >
           <ion-content>
-            <div className="modal-content">
-              <div className="modal-card">
-                <ion-button className="close-modal-btn" @click="dismiss()">
+            <div class="modal-content">
+              <div class="modal-card">
+                <ion-button class="close-modal-btn" @click="dismiss()">
                   <ion-icon :icon="closeOutline"></ion-icon>
                 </ion-button>
                 <ion-card>
@@ -98,7 +98,7 @@ export default defineComponent({
   },
   data() {
     return {
-      modalMovie: [],
+      modalMovie: [] as any,
       imageUrl: "http://image.tmdb.org/t/p/original/",
     };
   },

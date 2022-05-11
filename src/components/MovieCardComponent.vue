@@ -50,9 +50,12 @@ export default defineComponent({
     isRatingBtn: Boolean,
     isRemoveBtn: Boolean,
     removeFunction: Function,
-    movies: Array,
+    movies: {},
     index: Number,
-    item: [],
+    item: {},
+  },
+  mounted() {
+    console.log("event", this.movies);
   },
   setup() {
     return {

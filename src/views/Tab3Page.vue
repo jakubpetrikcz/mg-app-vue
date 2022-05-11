@@ -59,7 +59,7 @@ export default defineComponent({
   },
   data() {
     return {
-      results: [],
+      results: [] as any,
       imageUrl: "http://image.tmdb.org/t/p/original/",
     };
   },

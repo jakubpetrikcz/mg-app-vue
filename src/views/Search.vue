@@ -1,15 +1,5 @@
 <template>
   <ion-page>
-    <!-- <ion-header>
-      <ion-toolbar>
-        <ion-searchbar
-          color="light"
-          :value="searchText"
-          @ionChange="segmentChanged($event)"
-        >
-        </ion-searchbar>
-      </ion-toolbar>
-    </ion-header> -->
     <HeaderComponent
       name="Search"
       :showBtn="false"
@@ -32,7 +22,7 @@
               <MovieCardComponent
                 :title="list.title"
                 :imgSrc="imageUrl + list.poster_path"
-                :router="'/tab2/' + list.id"
+                :router="'/search/' + list.id"
                 :voterRating="list.vote_average"
                 :isAddBtn="false"
                 :isRatingBtn="true"
@@ -87,7 +77,7 @@ export default defineComponent({
   data() {
     return {
       popularList: [] as any,
-      imageUrl: "http://image.tmdb.org/t/p/original/",
+      imageUrl: "https://image.tmdb.org/t/p/w500/",
       searchText: "",
       page: 1,
     };
@@ -115,10 +105,7 @@ export default defineComponent({
     },
     loadData(ev: any) {
       this.page = this.page + 1;
-
-      console.log(this.page);
       this.filterData();
-      console.log("Loaded data");
       ev.target.complete();
     },
   },

@@ -7,7 +7,7 @@
       <MovieCardComponent
         :title="list.title"
         :imgSrc="imageUrl + list.poster_path"
-        :router="'/tab1/' + list.id"
+        :router="'/home/' + list.id"
         :voterRating="NaN"
         :isAddBtn="true"
         :isRatingBtn="false"
@@ -20,7 +20,7 @@
       <MovieCardComponent
         :title="list.title"
         :imgSrc="imageUrl + list.poster_path"
-        :router="'/tab1/' + list.id"
+        :router="'/home/' + list.id"
         :voterRating="NaN"
         :isAddBtn="true"
         :isRatingBtn="false"
@@ -56,7 +56,7 @@ export default defineComponent({
     return {
       trendsList: [],
       topList: [],
-      imageUrl: "http://image.tmdb.org/t/p/original/",
+      imageUrl: "https://image.tmdb.org/t/p/w500/",
     };
   },
   mounted() {

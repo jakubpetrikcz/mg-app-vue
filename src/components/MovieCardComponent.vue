@@ -22,7 +22,7 @@
       </ion-button>
     </div>
     <router-link :to="router">
-      <img :src="imgSrc" alt="movie image" />
+      <img width="180" height="290" :src="imgSrc" alt="movie image" />
       <h4>{{ title }}</h4>
     </router-link></ion-card
   >
@@ -54,9 +54,6 @@ export default defineComponent({
     index: Number,
     item: {},
   },
-  mounted() {
-    console.log("event", this.movies);
-  },
   setup() {
     return {
       bookmark,
@@ -66,13 +63,11 @@ export default defineComponent({
   },
   methods: {
     getItems(data: any) {
-      console.log(data);
       const items: any[] = [];
       if (JSON.parse(localStorage.getItem("items") || "[]") === null) {
         items.push(data);
         localStorage.setItem("items", JSON.stringify(items));
       } else {
-        console.log("Tady ne!");
         const localItems = JSON.parse(localStorage.getItem("items") || "[]");
         localItems.map((details: any) => {
           if (data.id !== details.id) {
@@ -83,7 +78,6 @@ export default defineComponent({
           }
         });
         items.push(data);
-        console.log(items);
         localStorage.setItem("items", JSON.stringify(items));
       }
     },

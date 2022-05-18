@@ -3,7 +3,7 @@
     <HeaderComponent name="Watchlist" :showBtn="false" :showSearchBar="false" />
     <ion-content :fullscreen="true">
       <ion-list>
-        <div>
+        <div v-if="results.length !== 0">
           <ion-grid>
             <ion-row>
               <ion-col
@@ -17,7 +17,7 @@
                 <MovieCardComponent
                   :title="list.title"
                   :imgSrc="imageUrl + list.poster_path"
-                  :router="'/tab3/' + list.id"
+                  :router="'/watchlist/' + list.id"
                   :isRemoveBtn="true"
                   v-bind:removeFunction="removeItem"
                   v-bind:movies="list"
@@ -26,6 +26,9 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+        </div>
+        <div class="ion-text-center" v-else>
+          <h2>Watchlist is empty!</h2>
         </div>
       </ion-list>
     </ion-content>
@@ -60,7 +63,7 @@ export default defineComponent({
   data() {
     return {
       results: [] as any,
-      imageUrl: "http://image.tmdb.org/t/p/original/",
+      imageUrl: "https://image.tmdb.org/t/p/w500/",
     };
   },
   ionViewWillEnter() {
@@ -73,7 +76,6 @@ export default defineComponent({
 
     removeItem(e: any, i: number) {
       const items: any[] = [];
-      console.log("event", this.results);
       JSON.parse(localStorage.getItem("items") || "[]").map((data: any) => {
         if (data.id !== e.id) {
           items.push(data);
@@ -82,7 +84,6 @@ export default defineComponent({
         }
       });
       localStorage.setItem("items", JSON.stringify(items));
-      console.log("items", items);
 
       if (items.length === 0) {
         localStorage.clear();

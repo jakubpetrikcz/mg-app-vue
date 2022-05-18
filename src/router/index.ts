@@ -9,30 +9,30 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "",
-        redirect: "tab1",
+        redirect: "home",
       },
       {
-        path: "tab1",
-        component: () => import("@/views/Tab1Page.vue"),
+        path: "home",
+        component: () => import("@/views/Home.vue"),
       },
       {
-        path: "tab1/:id",
+        path: "home/:id",
         component: () => import("@/views/MovieDetails.vue"),
       },
       {
-        path: "tab2",
-        component: () => import("@/views/Tab2Page.vue"),
+        path: "search",
+        component: () => import("@/views/Search.vue"),
       },
       {
-        path: "tab2/:id",
+        path: "search/:id",
         component: () => import("@/views/MovieDetails.vue"),
       },
       {
-        path: "tab3",
-        component: () => import("@/views/Tab3Page.vue"),
+        path: "watchlist",
+        component: () => import("@/views/Watchlist.vue"),
       },
       {
-        path: "tab3/:id",
+        path: "watchlist/:id",
         component: () => import("@/views/MovieDetails.vue"),
       },
     ],

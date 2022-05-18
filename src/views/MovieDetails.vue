@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-back-button defaultHref="/tab1"></ion-back-button>
+          <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title class="logo-container">
           <a href="/">
@@ -161,16 +161,14 @@ export default defineComponent({
       director: [],
       cast: [],
       runTime: "",
-      imageUrl: "http://image.tmdb.org/t/p/original/",
+      imageUrl: "https://image.tmdb.org/t/p/w500/",
     };
   },
   mounted() {
-    // const id = this.$router.currentRoute.value.params.id;
     const id = this.$route.params.id as string;
-    console.log(id);
+
     getMovieDetailList(id).then((r) => {
       this.movie = r;
-      // console.log(this.movie);
       this.runTime = calcTime(r.runtime);
     });
 
@@ -261,7 +259,6 @@ ion-header {
     position: absolute;
     bottom: -20px;
     left: 20px;
-    //transform: translateY(-50%);
     z-index: 10;
     font-size: 2.8rem;
     width: 50px;
@@ -301,24 +298,6 @@ ion-header {
     position: relative;
     z-index: 10;
   }
-
-  /*
-    i:first-of-type {
-      font-size: 2.5rem;
-      position: relative;
-      top: -5px;
-      left: 35px;
-      z-index: 1;
-    }
-
-    i:last-child {
-      font-size: 2.5rem;
-      position: relative;
-      top: -5px;
-      left: -35px;
-      z-index: 1;
-    }
-    */
 
   span {
     position: absolute;

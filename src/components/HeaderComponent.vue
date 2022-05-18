@@ -27,7 +27,7 @@
                   <ion-icon :icon="closeOutline"></ion-icon>
                 </ion-button>
                 <ion-card>
-                  <router-link :to="'/tab1/' + modalMovie.id">
+                  <router-link :to="'/home/' + modalMovie.id">
                     <img
                       :src="imageUrl + modalMovie.poster_path"
                       alt="movie image"
@@ -99,7 +99,7 @@ export default defineComponent({
   data() {
     return {
       modalMovie: [] as any,
-      imageUrl: "http://image.tmdb.org/t/p/original/",
+      imageUrl: "https://image.tmdb.org/t/p/w500/",
     };
   },
   mounted() {
@@ -107,29 +107,13 @@ export default defineComponent({
   },
   methods: {
     getDiscoverMovie() {
-      // this.page = 1;
-      // this.discoverResults = [];
-
       const page = Math.floor(Math.random() * (500 - 1) + 1) + 1;
-      console.log(page);
       const movie = Math.floor(Math.random() * 19);
-      console.log(movie);
 
       getDiscoverList(page).then((data) => {
         this.modalMovie = data.results[movie];
-        console.log(this.modalMovie);
-        // this.initializeContainer();
       });
     },
-
-    // initializeContainer() {
-    //   this.title = this.modalMovie.title;
-    //   // console.log(this.title);
-    //   this.image =
-    //     "http://image.tmdb.org/t/p/original/" + this.modalMovie.poster_path;
-    //   // console.log(this.image);
-    //   this.id = this.modalMovie.id;
-    // },
 
     dismiss() {
       modalController.dismiss({

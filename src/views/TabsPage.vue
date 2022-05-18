@@ -3,19 +3,21 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="tab1" href="/tab1">
-          <ion-icon :icon="currentRouteName === '/tab1' ? home : homeOutline" />
+        <ion-tab-button tab="home" href="/home">
+          <ion-icon :icon="currentRouteName === '/home' ? home : homeOutline" />
         </ion-tab-button>
 
-        <ion-tab-button tab="tab2" href="/tab2">
+        <ion-tab-button tab="search" href="/search">
           <ion-icon
-            :icon="currentRouteName === '/tab2' ? search : searchOutline"
+            :icon="currentRouteName === '/search' ? search : searchOutline"
           />
         </ion-tab-button>
 
-        <ion-tab-button tab="tab3" href="/tab3">
+        <ion-tab-button tab="watchlist" href="/watchlist">
           <ion-icon
-            :icon="currentRouteName === '/tab3' ? bookmark : bookmarkOutline"
+            :icon="
+              currentRouteName === '/watchlist' ? bookmark : bookmarkOutline
+            "
           />
         </ion-tab-button>
       </ion-tab-bar>

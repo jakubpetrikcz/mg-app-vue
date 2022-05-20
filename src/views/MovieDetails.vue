@@ -7,7 +7,7 @@
         </ion-buttons>
         <ion-title class="logo-container">
           <a href="/">
-            <img src="../../public/assets/mg-icon.png" alt="" />
+            <img src="../../public/assets/mg-icon.png" alt="logo" />
           </a>
         </ion-title>
       </ion-toolbar>

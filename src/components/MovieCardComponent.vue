@@ -102,6 +102,7 @@ ion-card {
     object-fit: cover;
     border-radius: 12px;
     width: 100%;
+    height: auto;
     transition: 600ms all ease-in-out;
   }
 
